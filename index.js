@@ -1,17 +1,14 @@
-var fs = require("fs");
-
-var coreFunctions  = require('./core_functions');
-var queryFunctions  = require('./query');
+var coreFunctions = require('./core_functions');
+var queryFunctions = require('./query');
 
 var config = require('./config');
-var table = config['table'];
 var migrations_types = config['migrations_types'];
 
 function migration(conn, path, cb) {
-  if(cb == null)
-    cb = () => {};
+  if (cb == null)
+    cb = () => { };
 
-  queryFunctions.run_query(conn, "CREATE TABLE IF NOT EXISTS `" + table + "` (`timestamp` varchar(254) NOT NULL UNIQUE)", function (res) {
+  queryFunctions.createMigrationsTable(conn, function () {
     handle(process.argv, conn, path, cb);
   });
 }
@@ -50,6 +47,15 @@ function handle(argv, conn, path, cb) {
           cb();
         });
       });
+    } else if (argv[2] == 'fresh') {
+      queryFunctions.dropTables(conn, function () {
+        queryFunctions.createMigrationsTable(conn, function () {
+          coreFunctions.up_migrations(conn, 999999, path, function () {
+            conn.end();
+            cb();
+          });
+        });
+      });
     } else if (argv[2] == 'run' && migrations_types.indexOf(argv[4]) > -1) {
       coreFunctions.run_migration_directly(argv[3], argv[4], conn, path, function () {
         conn.end();
@@ -64,3 +70,4 @@ function handle(argv, conn, path, cb) {
 module.exports = {
   init: migration
 }
+

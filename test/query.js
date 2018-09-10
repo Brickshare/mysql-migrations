@@ -22,7 +22,7 @@ describe('query.js', function() {
             throw error;
           }
 
-          queryFunctions.updateRecords(mysql, 'up', table, timestamp, function () {
+          queryFunctions.updateRecords(mysql, 'up', table, timestamp, null, function () {
             connection.query('SELECT * FROM `'+table+'` WHERE timestamp="'+timestamp+'"', function(err, res) {
               if (err) {
                 throw err;
@@ -37,7 +37,7 @@ describe('query.js', function() {
     });
 
     it('should delete from table when down', function (done) {
-      queryFunctions.updateRecords(mysql, 'down', table, timestamp, function () {
+      queryFunctions.updateRecords(mysql, 'down', table, timestamp, null, function () {
         mysql.getConnection(function (err, connection) {
           connection.query('SELECT * FROM `'+table+'` WHERE timestamp="'+timestamp+'"', function(err, res) {
             if (err) {

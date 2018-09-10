@@ -6,7 +6,7 @@ var table = require('./config')['table'];
 
 function add_migration(argv, path, cb) {
   fileFunctions.validate_file_name(argv[4]);
-  fileFunctions.readFolder(path, function (files) {
+  fileFunctions.readFolder(path, function () {
     var file_name = Date.now() + "_" + argv[4];
     var file_path = path + '/' + file_name + '.js';
 
@@ -25,7 +25,7 @@ function add_migration(argv, path, cb) {
         throw err;
       }
 
-      console.log("Added file " + file_name);
+      console.info("Added file " + file_name);
       cb();
     });
   });
@@ -61,7 +61,6 @@ function up_migrations(conn, max_count, path, cb) {
 function down_migrations(conn, max_count, path, cb) {
   queryFunctions.run_query(conn, "SELECT timestamp FROM " + table + " ORDER BY timestamp DESC LIMIT " + max_count, function (results) {
     var file_paths = [];
-    var max_timestamp = 0;
     if (results.length) {
       var temp_timestamps = results.map(function(ele) {
         return ele.timestamp;
@@ -81,6 +80,8 @@ function down_migrations(conn, max_count, path, cb) {
     }
   });
 }
+
+
 
 function run_migration_directly(file, type, conn, path, cb) {
   var current_file_path = path + "/" + file;
