@@ -1,5 +1,5 @@
 {
-  "name": "mysql-migrations",
+  "name": "mysql-migrations2",
   "version": "1.0.7",
   "description": "A tool to use with mysql package to maintain migrations",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kawadhiya21/mysql-migrations.git"
+    "url": "git+https://github.com/Brickshare/mysql-migrations.git"
   },
   "keywords": [
     "node",
@@ -20,9 +20,9 @@
   "author": "Kshitij Awadhiya",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kawadhiya21/mysql-migrations/issues"
+    "url": "https://github.com/Brickshare/mysql-migrations/issues"
   },
-  "homepage": "https://github.com/kawadhiya21/mysql-migrations#readme",
+  "homepage": "https://github.com/Brickshare/mysql-migrations#readme",
   "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",

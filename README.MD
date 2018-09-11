@@ -1,4 +1,5 @@
-# mysql-migrations
+# mysql-migrations2
+This is a fork of https://www.npmjs.com/package/mysql-migrations
 
 ## Table of contents
  - [Prerequisites](#prerequisites)
